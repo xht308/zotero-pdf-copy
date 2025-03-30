@@ -1,13 +1,12 @@
 {
 	"manifest_version": 2,
 	"name": "Copy PDF",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Find and copy the PDF file from the Zotero library.",
-	// "homepage_url": "https://github.com/zotero/make-it-red",
 	"applications": {
 		"zotero": {
 			"id": "zotero-pdf-copy@infty.fun",
-			// "update_url": "https://zotero-download.s3.amazonaws.com/tmp/make-it-red/updates-2.0.json",
+			"update_url": "https://raw.githubusercontent.com/xht308/zotero-pdf-copy/refs/heads/main/update.json",
 			"strict_min_version": "7.0",
 			"strict_max_version": "7.99.*"
 		}

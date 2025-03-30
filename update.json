@@ -3,9 +3,9 @@
     "zotero-pdf-copy@infty.fun": {
       "updates": [
         {
-          "version": "0.0.1",
-          "update_link": "https://zotero-download.s3.amazonaws.com/tmp/make-it-red/make-it-red-2.0.xpi",
-          "update_hash": "sha256:96a72e8a9828169fd5e359fe33f9280f30285e2c484eaef5e275d1ec204a88f5",
+          "version": "0.0.2",
+          "update_link": "https://github.com/xht308/zotero-pdf-copy/releases/download/v0.0.2/zotero-pdf-copy.xpi",
+          "update_hash": "sha256:14a0536f0851729f064a52440156a082305d0b0305c3e6d12ef1e7ea8babbb92",
           "applications": {
             "zotero": {
               "strict_min_version": "7.0"
