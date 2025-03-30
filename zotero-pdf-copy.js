@@ -96,7 +96,6 @@ PdfCopy = {
         if (!attachment || !attachment.isPDFAttachment()) return;
         let path = attachment.getFilePath();
         if (!path) return;
-        Zotero.Utilities.Internal.copyTextToClipboard(path);
         clip = Services.clipboard;
         var trans = Components.classes["@mozilla.org/widget/transferable;1"]
             .createInstance(Components.interfaces.nsITransferable);
