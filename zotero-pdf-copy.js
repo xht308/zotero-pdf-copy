@@ -76,6 +76,7 @@ PdfCopy = {
         return (event) => {
             // Check the key combination for Alt+C
             if (!event.altKey || event.keyCode !== 'C'.charCodeAt(0)) return;
+            
             // Get the current Zotero tab type
             let tabType = window.Zotero_Tabs.selectedType;
             if (tabType == "library") this.copySelectedItemPdfToClipboard();
