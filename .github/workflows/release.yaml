@@ -30,14 +30,7 @@ jobs:
           echo "Version: $VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Get version from update.json
-        id: get_update_version
-        run: |
-          UPDATE_VERSION=$(jq -r '.addons["zotero-pdf-copy@infty.fun"].updates[0].version' update.json)
-          echo "Update Version: $UPDATE_VERSION"
-          echo "UPDATE_VERSION=$UPDATE_VERSION" >> $GITHUB_ENV
-
-      - name: Validate if tag, manifest, and update versions match
+      - name: Validate if tag and version match
         run: |
           # Remove the "v" prefix from the tag and compare it
           TAG_VERSION="${TAG_NAME:1}"
@@ -45,14 +38,7 @@ jobs:
             echo "Error: Tag version '$TAG_VERSION' does not match manifest version '$VERSION'."
             exit 1  # Fail the build
           fi
-          
-          # Validate if manifest and update.json versions match
-          if [ "$VERSION" != "$UPDATE_VERSION" ]; then
-            echo "Error: Manifest version '$VERSION' does not match update.json version '$UPDATE_VERSION'."
-            exit 1  # Fail the build
-          fi
-          
-          echo "Tag version, manifest version, and update.json version all match. Proceeding with the build."
+          echo "Tag version matches manifest version. Proceeding with the build."
 
       - name: Set executable permission for build script
         run: chmod +x build.sh
@@ -68,5 +54,15 @@ jobs:
           body: "Automated build and release for version ${{ github.ref_name }}"
           files: |
             zotero-pdf-copy.xpi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push update.json
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add update.json  # Add update.json to staging
+          git commit -m "Update update.json after build"  # Commit the changes
+          git push origin ${{ github.ref }}  # Push changes to the same branch or tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
