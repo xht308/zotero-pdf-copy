@@ -5,7 +5,7 @@
         {
           "version": "0.0.9",
           "update_link": "https://github.com/xht308/zotero-pdf-copy/releases/download/v0.0.9/zotero-pdf-copy.xpi",
-          "update_hash": "sha256:e4b9926056057ab11ad8e6705ff916f0ba636a88816e5da22947bb797bc22c97",
+          "update_hash": "sha256:4b4ecc45dafae92bad095470e4c6fc3b9799a17b7ffd3654be2bdbe86f63de37",
           "applications": {
             "zotero": {
               "strict_min_version": "7.0"
