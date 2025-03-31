@@ -30,7 +30,7 @@ PdfCopy = {
         this.addedElementIDs.push(menuitem.id);
 
         // Register a event listener to copy the PDF to clipboard
-        this.eventListener = this.getEventListener(window);
+        this.eventListener = this.getEventListener(window).bind(this);
         window.addEventListener("keydown", this.eventListener);
     },
 

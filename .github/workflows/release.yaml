@@ -1,0 +1,55 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - '*' # Listen to all tag push events
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get current tag
+        id: get_tag
+        run: |
+          TAG_NAME="${GITHUB_REF#refs/tags/}"  # Extract tag name
+          echo "Tag: $TAG_NAME"
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+
+      - name: Get version from manifest
+        id: get_version
+        run: |
+          VERSION=$(jq -r '.version' manifest.json)  # Get version from manifest.json
+          echo "Version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Validate if tag and version match
+        run: |
+          # Remove the "v" prefix from the tag and compare it
+          TAG_VERSION="${TAG_NAME:1}"
+          if [ "$TAG_VERSION" != "$VERSION" ]; then
+            echo "Error: Tag version '$TAG_VERSION' does not match manifest version '$VERSION'."
+            exit 1  # Fail the build
+          fi
+          echo "Tag version matches manifest version. Proceeding with the build."
+
+      - name: Set executable permission for build script
+        run: chmod +x build.sh
+
+      - name: Run build.sh
+        run: ./build.sh
+
+      - name: Create Release and upload build artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}  # Use the current tag as the release version
+          name: Release ${{ github.ref_name }}
+          body: "Automated build and release for version ${{ github.ref_name }}"
+          files: |
+            zotero-pdf-copy.xpi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

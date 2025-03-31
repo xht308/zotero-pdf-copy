@@ -1,8 +1,6 @@
 #!/bin/bash
 
-zip -r zotero-pdf-copy.xpi * -x "*.git/*" -x "*.xpi" -x "update.json" -x "*.tmpl" -x "build.sh"
-
-verison=$(jq -r '.version' manifest.json)
+zip -r zotero-pdf-copy.xpi * -x "*.git/*" -x "*.github/*" -x "*.xpi" -x "update.json" -x "*.tmpl" -x "build.sh"
 
 jq \
   --arg version "`jq -r '.version' manifest.json`" \
