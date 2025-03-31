@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Copy PDF",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "Find and copy the PDF file from the Zotero library.",
     "homepage_url": "https://github.com/xht308/zotero-pdf-copy",
 	"applications": {
