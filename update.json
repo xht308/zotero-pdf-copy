@@ -3,9 +3,9 @@
     "zotero-pdf-copy@infty.fun": {
       "updates": [
         {
-          "version": "0.0.4",
-          "update_link": "https://github.com/xht308/zotero-pdf-copy/releases/download/v0.0.4/zotero-pdf-copy.xpi",
-          "update_hash": "sha256:d3b54fcbf5fb0e9e583ea2a60962f6897b4e41ccc3ee9dafc4dd090e88fa3563",
+          "version": "0.0.6",
+          "update_link": "https://github.com/xht308/zotero-pdf-copy/releases/download/v0.0.6/zotero-pdf-copy.xpi",
+          "update_hash": "sha256:face82931113a1c39b10ce77b6bfe1ce5122146af9d9f7092c5274cf1cb0e081",
           "applications": {
             "zotero": {
               "strict_min_version": "7.0"

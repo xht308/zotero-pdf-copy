@@ -30,7 +30,14 @@ jobs:
           echo "Version: $VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Validate if tag and version match
+      - name: Get version from update.json
+        id: get_update_version
+        run: |
+          UPDATE_VERSION=$(jq -r '.addons["zotero-pdf-copy@infty.fun"].updates[0].version' update.json)
+          echo "Update Version: $UPDATE_VERSION"
+          echo "UPDATE_VERSION=$UPDATE_VERSION" >> $GITHUB_ENV
+
+      - name: Validate if tag, manifest, and update versions match
         run: |
           # Remove the "v" prefix from the tag and compare it
           TAG_VERSION="${TAG_NAME:1}"
@@ -38,7 +45,14 @@ jobs:
             echo "Error: Tag version '$TAG_VERSION' does not match manifest version '$VERSION'."
             exit 1  # Fail the build
           fi
-          echo "Tag version matches manifest version. Proceeding with the build."
+          
+          # Validate if manifest and update.json versions match
+          if [ "$VERSION" != "$UPDATE_VERSION" ]; then
+            echo "Error: Manifest version '$VERSION' does not match update.json version '$UPDATE_VERSION'."
+            exit 1  # Fail the build
+          fi
+          
+          echo "Tag version, manifest version, and update.json version all match. Proceeding with the build."
 
       - name: Set executable permission for build script
         run: chmod +x build.sh
